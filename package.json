@@ -1,6 +1,6 @@
 {
   "name": "callsite-log",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Log values with caller file and line number.",
   "license": "MIT",
   "private": false,
