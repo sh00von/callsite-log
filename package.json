@@ -23,6 +23,7 @@
     "build": "tsup --config tsup.config.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --pool=threads",
+    "smoke:imports": "node scripts/smoke-imports.mjs",
     "dev": "vitest --pool=threads",
     "bench": "node bench/run-bench.mjs",
     "bench:ci": "node bench/run-bench.mjs --ci",

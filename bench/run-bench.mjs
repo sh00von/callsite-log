@@ -1,5 +1,5 @@
 import { performance } from "node:perf_hooks";
-import { log } from "../dist/index.mjs";
+import { info, log, once, resetOnce, resetTimers, time, timeEnd } from "../dist/index.mjs";
 
 const isCi = process.argv.includes("--ci");
 
@@ -32,7 +32,11 @@ function printResult(result) {
 }
 
 const realConsoleLog = console.log;
+const realConsoleInfo = console.info;
 console.log = () => {};
+console.info = () => {};
+resetOnce();
+resetTimers();
 
 const results = [
   runCase("pretty + location (small)", () => log(sampleSmall), 4000),
@@ -42,9 +46,17 @@ const results = [
   runCase("pretty + location (deep)", () => log(sampleDeep), 2000),
   runCase("fast + no location (deep)", () =>
     log(sampleDeep, { mode: "fast", includeLocation: false }), 2000),
+  runCase("info + fast + no location", () =>
+    info(sampleSmall, { mode: "fast", includeLocation: false }), 4000),
+  runCase("once repeat no-op", () => once("bench:once", sampleSmall, { includeLocation: false }), 4000),
+  runCase("time/timeEnd pair", () => {
+    time("bench:timer", { clockNow: () => 100 });
+    timeEnd("bench:timer", { clockNow: () => 140, includeLocation: false });
+  }, 2000),
 ];
 
 console.log = realConsoleLog;
+console.info = realConsoleInfo;
 
 console.log("where-log benchmark");
 for (const result of results) {

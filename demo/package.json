@@ -1,0 +1,18 @@
+{
+  "name": "where-log-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo usage for where-log package",
+  "type": "module",
+  "scripts": {
+    "cjs": "node cjs-demo.cjs",
+    "esm": "node esm-demo.mjs",
+    "presets": "node presets-demo.mjs",
+    "levels": "node levels-demo.mjs",
+    "session": "node once-time-context-demo.mjs",
+    "all": "npm run cjs && npm run esm && npm run presets && npm run levels && npm run session"
+  },
+  "dependencies": {
+    "where-log": "file:.."
+  }
+}

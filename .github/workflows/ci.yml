@@ -18,6 +18,7 @@ jobs:
       - run: npm run typecheck
       - run: npm run test
       - run: npm run build
+      - run: npm run smoke:imports
       - run: npm run bench:ci
       - run: npm run pack:dry-run
       - run: npm run publish:dry-run
