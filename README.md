@@ -1,17 +1,17 @@
-# callsite-log
+# where-log
 
 Log a value with the caller file and line number.
 
 ## Install
 
 ```bash
-npm install callsite-log
+npm install where-log
 ```
 
 ## Usage
 
 ```ts
-import { log } from "callsite-log";
+import { log } from "where-log";
 
 const user = { id: 1, name: "Shovon" };
 log(user);

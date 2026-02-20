@@ -1,5 +1,5 @@
 {
-  "name": "callsite-log",
+  "name": "where-log",
   "version": "0.1.1",
   "description": "Log values with caller file and line number.",
   "license": "MIT",
