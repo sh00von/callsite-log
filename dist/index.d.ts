@@ -1,7 +1,13 @@
+type LogMode = "pretty" | "fast";
+declare function formatLabeledValue(label: string | undefined, formattedValue: unknown): unknown;
+
 type ParsedFrame = {
     file: string;
     line: number;
 };
+declare function parseFrameLine(frame: string): ParsedFrame | null;
+declare function getCallerFromStack(stack?: string): ParsedFrame;
+
 type FormatterInput = {
     location: string;
     label?: string;
@@ -13,13 +19,13 @@ type FormatterOutput = {
     valueLine: unknown;
 };
 type LogOptions = {
+    mode?: LogMode;
+    includeLocation?: boolean;
+    inspectDepth?: number;
     colors?: boolean;
     formatter?: (input: FormatterInput) => FormatterOutput;
 };
-declare function parseFrameLine(frame: string): ParsedFrame | null;
-declare function getCallerFromStack(stack?: string): ParsedFrame;
 declare function isLogOptions(value: unknown): value is LogOptions;
-declare function formatLabeledValue(label: string | undefined, formattedValue: unknown): unknown;
 declare function log(value: unknown, options?: LogOptions): void;
 declare function log(label: string, value: unknown, options?: LogOptions): void;
 declare const __internal: {
@@ -29,4 +35,4 @@ declare const __internal: {
     isLogOptions: typeof isLogOptions;
 };
 
-export { type FormatterInput, type FormatterOutput, type LogOptions, __internal, log };
+export { type FormatterInput, type FormatterOutput, type LogMode, type LogOptions, __internal, log };

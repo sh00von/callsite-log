@@ -41,6 +41,8 @@ log("user", user, {
     valueLine: `${label}: ${JSON.stringify(value)}`,
   }),
 });
+
+log(user, { mode: "fast", includeLocation: false });
 ```
 
 ## Notes
@@ -49,11 +51,22 @@ log("user", user, {
 - Browser/Next.js: call-site depends on source maps and bundler/devtools behavior.
 - If stack parsing fails, the package prints `unknown:0` on line 1.
 
+## Performance Tuning
+
+- `mode: "pretty"` (default): rich formatting via Node inspect.
+- `mode: "fast"`: lower overhead formatting for hot paths.
+- `includeLocation: false`: skips stack capture/parsing.
+- `inspectDepth`: limit inspect depth in pretty mode.
+
 ## API
 
 - `log(value: unknown): void`
 - `log(value: unknown, options?: LogOptions): void`
 - `log(label: string, value: unknown, options?: LogOptions): void`
+- `LogMode = "pretty" | "fast"`
 - `LogOptions`
+  - `mode?: LogMode` (default `"pretty"`)
+  - `includeLocation?: boolean` (default `true`)
+  - `inspectDepth?: number` (pretty mode only)
   - `colors?: boolean` (Node only, default `true`)
   - `formatter?: (input) => { locationLine: unknown; valueLine: unknown }`

@@ -92,4 +92,52 @@ describe("log()", () => {
     expect(spy.mock.calls[1][0]).toBe("user:{\"id\":1}");
     spy.mockRestore();
   });
+
+  it("passes disabled location to formatter when includeLocation is false", () => {
+    const spy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    log("user", { id: 1 }, {
+      includeLocation: false,
+      formatter: ({ location }) => ({
+        locationLine: location,
+        valueLine: "ok",
+      }),
+    });
+
+    expect(spy.mock.calls[0][0]).toBe("disabled:0");
+    spy.mockRestore();
+  });
+
+  it("supports includeLocation false", () => {
+    const spy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    log({ id: 1 }, { includeLocation: false });
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(String(spy.mock.calls[0][0])).toContain("id");
+    spy.mockRestore();
+  });
+
+  it("supports fast mode", () => {
+    const spy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    log({ id: 1, name: "Shovon" }, { mode: "fast", includeLocation: false });
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy.mock.calls[0][0]).toBe("{\"id\":1,\"name\":\"Shovon\"}");
+    spy.mockRestore();
+  });
+
+  it("supports inspectDepth in pretty mode", () => {
+    const spy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    log(
+      { level1: { level2: { level3: { done: true } } } },
+      { inspectDepth: 1, includeLocation: false },
+    );
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(String(spy.mock.calls[0][0])).toContain("[Object]");
+    spy.mockRestore();
+  });
 });

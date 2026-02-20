@@ -1,6 +1,6 @@
 {
   "name": "where-log",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Log values with caller file and line number.",
   "license": "MIT",
   "private": false,
@@ -24,6 +24,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run --pool=threads",
     "dev": "vitest --pool=threads",
+    "bench": "node bench/run-bench.mjs",
+    "bench:ci": "node bench/run-bench.mjs --ci",
     "pack:dry-run": "npm pack --dry-run --cache ./.npm-cache",
     "publish:dry-run": "npm publish --dry-run --cache ./.npm-cache",
     "release:check": "npm run pack:dry-run && npm run publish:dry-run"
